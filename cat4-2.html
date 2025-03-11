@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>貓隻照護</title>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            background-image: url("../圖/狗貓1.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("../圖/狗貓1.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+            /* 半透明白色背景 */
+            background-size: cover;
+            z-index: -1;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            background-color: #95C5D4;
+            color: #FEF8EB;
+            padding: 1rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        nav {
+            background-color: #B7DAE4;
+            box-shadow: 0 2px 4px #F8E4DB;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: #5C5E74;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        /* 查詢欄位位置 */
+        .searchForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .searchForm input {
+            margin-bottom: 20px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .searchForm span {
+            margin-bottom: 30px;
+        }
+
+        form {
+            position: relative;
+            top: 10px;
+            left: 8%;
+        }
+
+        button {
+            position: relative;
+            top: -25px;
+            left: 86%;
+        }
+
+        /* 下拉式選單樣式 */
+        .dropdown {
+            position: relative;
+        }
+
+        /* 預設隱藏 */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #B7DAE4;
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            min-width: 150px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .dropdown-menu li {
+            width: 100%;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #5C5E74;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #95C5D4;
+            color: #fff;
+        }
+
+        /* 滑鼠懸停時顯示下拉選單 */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .cute {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 0%;
+            margin-right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>貓隻照護</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="animal_index.html">毛孩夥伴</a></li>
+            <li><a href="animal_home.html">毛孩之家</a></li>
+            <li><a href="animal_hospital.html">毛孩醫院</a></li>
+
+            <li class="dropdown">
+                <a href="animal_knowledge.html">毛孩保健</a>
+                <ul class="dropdown-menu">
+                    <li><a href="dog.html">犬隻照護</a></li>
+                    <li><a href="cat.html">貓隻照護</a></li>
+                    <li><a href="rabbit.html">兔隻照護</a></li>
+                    <li><a href="hamster.html">倉鼠照護</a></li>
+                    <li><a href="hedgehog.html">刺蝟照護</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <h2>貓咪的照顧需要細心和愛心，確保它們健康、快樂的生活。</h2>
+    <h3>先前準備</h3>
+    <p>
+        貓隻可能保留部分自然習性，飼主必須要在充分了解牠們的習性後再接觸、飼養貓隻。
+        <hr>
+        在飼養前應對貓隻的生理構造及行為有基本認識，並了解基本的飼養照顧方式，以提供貓隻妥善的照顧。
+    </p>
+    <br></br>
+    <h3>初期環境</h3>
+    <p>
+        準備一個安靜的房間並關上門窗，讓初來乍到的貓隻慢慢探索、熟悉環境，等確定貓隻足夠穩定後，再打開房門讓貓隻探索屋內其他空間、接觸其他家庭成員。
+    </p>
+    <br></br>
+    <h3>晶片植入、寵物登記</h3>
+    <p>
+        晶片內存有貓隻本身的登記資料與飼主的簡要資訊，是最重要的身分識別依據。
+        <hr>
+        收容所、獸醫院等相關機構透過掃瞄晶片，可以查詢到飼主的聯絡資料，確實進行寵物登記可以確保貓隻走失時更順利找回。
+        <hr>
+        初次取得、飼養貓隻時要進行登記之外，也包含資料變更、寵物轉讓、死亡註銷等。
+    </p>
+    <br></br>
+    <h3>狂犬病預防注射</h3>
+    <p>
+        飼養貓隻過程中，每年應該定期施打狂犬病疫苗及其他疫苗，每3~6個月寄生蟲預防藥（例如：心絲蟲、跳蚤、壁蝨），預防大部分的常見疾病。
+    </p>
+    <br></br>
+    <div class="cute">
+        <img src="../圖/狗貓鼠刺.jpg" width="650" height="550">
+    </div>
+    <br></br>
+    <h3>絕育</h3>
+    <p>
+        飼主應該要為貓隻進行絕育，不能任意繁殖貓隻。
+    </p>
+    <br></br>
+    <h3>基本照護</h3>
+    <p>
+        貓是純肉食性動物，不應提供純素食飲食。
+        <hr>
+        考量貓隻的性別、品種、年齡、活動量、體重、健康狀況等，提供符合其營養需求的飼料、罐頭或無調味鮮食。太油、太鹹、含有咖啡因的食物、堅硬的骨頭，都不是和貓隻食用，避免口腔、消化道受傷。
+        <hr>
+        提供水分含量較多的食物，如：罐頭、鮮食、濕糧等。
+        <hr>
+        將食物及貓砂盆與飲水分開，並放置多個水碗在貓隻活動較頻繁的路徑上。部分貓隻偏好引用流動的水源，可嘗試使用自動飲水機。
+        <hr>
+        保持水碗的乾淨，並避免清潔劑殘留。
+        <hr>
+        有較明顯的異常變化（例如：飲食飲水的份量與頻率、精神狀況、如廁頻率、貓毛光澤、動作姿勢、行為舉止、特殊氣味等），或是有較嚴重的急症症狀（例如：嘔吐、腹瀉、明顯的身體不適等），應即時諮詢獸醫師或其他專業建議。
+    </p>
+    <br></br>
+    <h3>飼養環境</h3>
+    <p>
+        貓隻對環境變化敏感，應將其飼養在室內，必須要有可獨處的空間、足夠的垂直活動及躲藏的空間，供其自由選擇，並做好安全措施。
+        <hr>
+        由於貓隻偏好上下跳動，可設置安全、豐富的活動設施（如：貓跳台）。
+        <hr>
+        若選擇籠具飼養：
+        1.提供足夠的垂直活動空間，確保可以在籠內充分伸展、活動。
+        2.籠具的底部若為鐵網、鐵柵或有間隙、網格，其縫隙的寬度必須夠小，以避免貓隻腳掌陷入；並建議增設腳踏墊或適當墊料，避免貓隻腳部受傷或疼痛。
+        <hr>
+        不應長期將貓隻飼養於籠內，或是以繩練繫住。
+        <hr>
+        依照需求選擇2個安全、合適尺寸大小的貓砂盆，避免讓排泄物或貓砂容易撒出，讓貓隻能自由選擇上廁所的環境。
+    </p>
+    <br></br>
+    <h3>外出防護</h3>
+    <p>
+        貓隻多在室內環境生活與活動，少有外出的機會，因此有部分貓隻並不喜歡或不適合外出，如果貓隻排斥，飼主不應強迫將其帶到公共場所活動。
+        <hr>
+        攜帶貓隻外出需選擇有防護的戶外環境，並提供適當的防護措施（如：胸背帶、外出籠等） 。
+    </p>
+    <br></br>
+    <h3>共同飼養</h3>
+    <p>
+        貓隻領域性極強，若與其他寵物共同飼養，必須要花費較多時間讓牠們逐漸適應。
+        <hr>
+        應提供足夠的資源（例如：各自的食器/飲水盆、貓砂盆、玩具、床、活動空間），特別是飲食用的餐具也應分別準備，並且保持適當的距離，這可以讓貓隻感到身處在安全的環境，亦避免貓隻或動物相互攻擊、爭奪。
+    </p>
+    <br></br>
+    <h3>破壞物品</h3>
+    <p>
+        貓隻有磨爪的習性，可準備貓抓板或有類似功能的貓跳台、貓抓柱等，滿足貓隻磨爪的需求。
+        <hr>
+        多數貓隻會從「捕捉到實體物」的過程中獲得成就感，可準備多樣化的寵物玩具（如：逗貓棒、玩偶、球類等），吸引貓隻的注意力與好奇心，誘使牠們追捕玩具而達到運動或消耗體力的目的。
+    </p>
+    <br></br>
+
+    <div class="header"></div>
+    <div class="body"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>毛孩醫院</title>
+
+    <!-- Data Table CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <!-- Data Table jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</head>
+<style>
+    table.dataTable,
+    table.dataTable th,
+    table.dataTable td {
+        border: 1px solid rgba(221, 221, 221, 0.5);
+        /* 半透明邊框 */
+        background-color: rgba(255, 255, 255, 0.5);
+        /* 半透明背景 */
+    }
+
+    table.dataTable {
+        border-collapse: collapse;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        background-color: rgba(255, 255, 255, 0.5);
+        /* 半透明背景 */
+        border: 1px solid rgba(221, 221, 221, 0.5);
+        /* 半透明邊框 */
+        margin: 2px;
+        padding: 5px 10px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background-color: rgba(255, 255, 255, 0.7);
+        /* 當滑鼠懸停時，稍微增加透明度 */
+    }
+
+    html {
+        height: 100%;
+    }
+
+    body {
+        background-image: url("../圖/全家福.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    header {
+        display: flex;
+        align-items: center;
+        background-color: #95C5D4;
+        color: #FEF8EB;
+        padding: 1rem 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 30px;
+    }
+
+    nav {
+        background-color: #B7DAE4;
+        box-shadow: 0 2px 4px #F8E4DB;
+        position: relative;
+        z-index: 1;
+    }
+
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    nav ul li {
+        margin: 0;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 1rem 1.5rem;
+        text-decoration: none;
+        color: #5C5E74;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    /* 查詢欄位位置 */
+    .searchForm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+
+    .searchForm input {
+        margin-bottom: 20px;
+        text-align: center;
+        width: 250px;
+        top: 10px;
+        left: 8%;
+    }
+
+    .searchForm span {
+        margin-bottom: 30px;
+    }
+
+    button {
+        position: relative;
+        top: -35px;
+        left: 95%;
+    }
+
+    /* 下拉式選單樣式 */
+    .dropdown {
+        position: relative;
+    }
+
+    /* 預設隱藏 */
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #B7DAE4;
+        display: none;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        min-width: 150px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+    }
+
+    .dropdown-menu li {
+        width: 100%;
+    }
+
+    .dropdown-menu a {
+        display: block;
+        padding: 10px 15px;
+        color: #5C5E74;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #95C5D4;
+        color: #fff;
+    }
+
+    /* 滑鼠懸停時顯示下拉選單 */
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+</style>
+
+<body>
+    <header>
+        <h1>毛孩醫院</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="animal_index.html">毛孩夥伴</a></li>
+            <li><a href="animal_home.html">毛孩之家</a></li>
+            <li><a href="animal_hospital.html">毛孩醫院</a></li>
+            <li class="dropdown">
+                <a href="animal_knowledge.html">毛孩保健</a>
+                <ul class="dropdown-menu">
+                    <li><a href="dog.html">犬隻照護</a></li>
+                    <li><a href="cat.html">貓隻照護</a></li>
+                    <li><a href="rabbit.html">兔隻照護</a></li>
+                    <li><a href="hamster.html">倉鼠照護</a></li>
+                    <li><a href="hedgehog.html">刺蝟照護</a></li>
+                </ul>
+        </ul>
+    </nav>
+
+    <div class="header"></div>
+    <div class="body"></div>
+
+    <div class="search-area">
+        <form id="searchForm" method="post">
+            <span>選擇查詢範圍</span>
+            <input list="地區列表" name="地區" placeholder="請輸入地區(ex:中區)">
+            <datalist id="地區列表">
+                <option value="中區">
+                <option value="東區">
+                <option value="南區">
+                <option value="西區">
+                <option value="北區">
+                <option value="西屯區">
+                <option value="南屯區">
+                <option value="北屯區">
+                <option value="豐原區">
+                <option value="東勢區">
+                <option value="大甲區">
+                <option value="清水區">
+                <option value="沙鹿區">
+                <option value="梧棲區">
+                <option value="后里區">
+                <option value="神岡區">
+                <option value="潭子區">
+                <option value="大雅區">
+                <option value="新社區">
+                <option value="石岡區">
+                <option value="外埔區">
+                <option value="大安區">
+                <option value="烏日區">
+                <option value="大肚區">
+                <option value="龍井區">
+                <option value="霧峰區">
+                <option value="太平區">
+                <option value="大里區">
+            </datalist>
+
+            <input list="地址列表" name="地址" placeholder="請輸入地址(ex:五權路)">
+            <datalist id="地址列表">
+                <option value="進化路122號">
+                <option value="練武路244號">
+                <option value="信義街43號">
+                <option value="十甲路230號">
+                <option value="大興街22號">
+                <option value="十甲東路657號">
+                <option value="十甲東路622號">
+                <option value="旱溪西路一段552號">
+                <option value="信義南街249號">
+                <option value="美村路二段88號">
+                <option value="國光路45號">
+                <option value="復興路1段405號">
+                <option value="忠明南路578號">
+                <option value="高工路285號">
+                <option value="復興路一段259號">
+                <option value="國光路58號">
+                <option value="德祥街72號">
+                <option value="復興路二段133號">
+                <option value="國光路379巷2號1樓">
+                <option value="復興路二段15巷28號">
+                <option value="建國南路一段246號">
+                <option value="建成路1793號">
+                <option value="向上路21號">
+                <option value="五權路2-191-8號">
+                <option value="博館路157號">
+                <option value="五權路2-199號">
+                <option value="美村路一段631號">
+                <option value="公正路146號">
+                <option value="民生路380號">
+            </datalist>
+
+            <input list="醫院列表" name="醫院名稱" placeholder="請輸入醫院名稱">
+            <datalist id="醫院列表">
+                <option value="仁愛犬醫院">
+                <option value="富台動物醫院">
+                <option value="東大動物醫院">
+                <option value="國立台中高農附設家畜醫院">
+                <option value="大安動物醫院">
+                <option value="米懷谷動物醫院">
+                <option value="何康動物醫院">
+                <option value="開心動物醫院">
+                <option value="羽森林動物醫院">
+                <option value="高生動物醫院">
+                <option value="佳恩動物醫院">
+                <option value="長和動物醫院">
+                <option value="聖愛動物醫院">
+                <option value="崇倫動物醫院">
+                <option value="迦南動物醫院">
+                <option value="祥億動物醫院">
+                <option value="胖胖動物醫院">
+                <option value="碩恩動物醫院">
+                <option value="尼昂貓專科醫院">
+                <option value="杜博動物診所">
+                <option value="巷弄動物醫院">
+                <option value="歐米咖動物醫院">
+                <option value="陪伴動物醫院">
+                <option value="國立中興大學獸醫教學醫院">
+                <option value="五福動物醫院">
+                <option value="達爾文動物醫院">
+                <option value="裕源動物醫院">
+                <option value="惠犬動物醫院">
+                <option value="人人動物醫院">
+                <option value="美安家畜醫院">
+            </datalist>
+
+            <input list="服務項目列表" name="服務項目" placeholder="請輸入服務項目(ex:疫苗注射、急診)">
+            <datalist id="服務項目列表">
+                <option value="合法動物醫院">
+                <option value="委辦寵物登記">
+                <option value="特約狂犬病預防注射">
+                <option value="委辦寵物絕育手術">
+                <option value="委辦急難救助">
+                <option value="委辦急難救助">
+                <option value="委辦動物中途收容">
+                <option value="急診">
+            </datalist>
+
+            <input list="動物種類列表" name="動物種類" placeholder="請輸入種類(ex:狗、貓、鼠)">
+            <datalist id="動物種類列表">
+                <option value="狗">
+                <option value="貓">
+                <option value="鼠">
+                <option value="兔">
+            </datalist>
+        </form>
+        <div>
+            <button id="search" value="查詢">查詢</button>
+        </div>
+    </div>
+
+
+    <table id="tableArray" class="display" style="width:100%"></table>
+
+    <script>
+        // 初始化datatable
+        $(document).ready(function () {
+            $.getJSON('../文件/動物醫院.json', function (data) {
+                console.log(data);
+                const rows = data.map(item => [
+                    item.地區,
+                    item.地址,
+                    item.醫院名稱,
+                    item.服務項目,
+                    item.動物種類
+                ]);
+
+                searchDataTable = $('#tableArray').DataTable({
+                    data: rows,
+                    columns: [
+                        { title: "地區" },
+                        { title: "地址" },
+                        { title: "醫院名稱" },
+                        { title: "服務項目" },
+                        { title: "動物種類" }
+                    ],
+                    // 關閉搜尋框
+                    searching: false,
+                    responsive: true,
+                    language: {
+                        emptyTable: "沒有資料",
+                        info: "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                        infoEmpty: "顯示第 0 至 0 項結果，共 0 項",
+                        infoFiltered: "(從 _MAX_ 項結果中過濾)",
+                        lengthMenu: "顯示 _MENU_ 項結果",
+                        zeroRecords: "沒有匹配結果",
+                        paginate: {
+                            first: "第一頁",
+                            last: "最後一頁",
+                            next: "下一頁",
+                            previous: "上一頁"
+                        },
+                        aria: {
+                            sortAscending: ": 升冪排列",
+                            sortDescending: ": 降冪排列"
+                        }
+                    }
+                });
+            });
+        });
+
+        //  找出form表單          加上監聽submit          按下submit後執行function    
+        document.getElementById('search').addEventListener('click', function (event) {
+            console.log('我按了')
+            // 獲取用戶輸入的值
+            var area = document.querySelector('input[name="地區"]').value;
+            var address = document.querySelector('input[name="地址"]').value;
+            var park = document.querySelector('input[name="醫院名稱"]').value;
+            var species = document.querySelector('input[name="服務項目"]').value;
+            var gender = document.querySelector('input[name="動物種類"]').value;
+
+            // console.log(area, park, species)
+
+            // 過濾資料的函數
+            function filterData(data, area, address, park, species, gender) {
+                return data.filter(item => {
+                    return (!area || item.地區.includes(area)) &&
+                        (!address || item.地址.includes(address)) &&
+                        (!park || item.醫院名稱.includes(park)) &&
+                        (!species || item.服務項目.includes(species)) &&
+                        (!gender || item.動物種類.includes(gender));
+                });
+            }
+
+            // 過濾資料
+            $.getJSON('../文件/動物醫院.json', function (data) {
+                console.log("flag1:", data);
+                const filteredData = filterData(data, area, address, park, species, gender);
+
+                const rows = filteredData.map(item => [
+                    item.地區,
+                    item.地址,
+                    item.醫院名稱,
+                    item.服務項目,
+                    item.動物種類,
+                ]);
+
+                // 更新DataTable
+                searchDataTable.clear().rows.add(rows).draw();
+            });
+        });
+    </script>
+</body>
+
+</html>
