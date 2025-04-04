@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<!-- 語言改為繁體中文 -->
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Restaurant</title>
+
+    <!-- Bootstrap 5 (來自 wwwroot/lib) -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- 自訂樣式 -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Restaurant.styles.css" asp-append-version="true" />
+
+    <!-- jQuery (一定要在 Tempus Dominus 之前) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Tempus Dominus Bootstrap 4 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- FontAwesome 圖示庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    
+</head>
+<body >
+    <header class="myfont fs-3">
+        <!--myfont = 自設字體。
+            RWDnbs = 自設導覽列響應式設定（調整字大小，漢堡選單前有一段差分）；
+            ps/ms = bs語法：左側內外距。
+            text-nowrap = bs語法：即使被壓縮也不換行。
+            fs = bs語法：預設字大小。
+            xl/md = bs語法：大螢幕跟中等螢幕寬度。
+        -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand ps-3" href="@Url.Action("Index", "Homepage")"><img style="width:150px" src="~/images/LogoIMG.png"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item text-nowrap RWDnbs px-3">
+                            <a class="nav-link active" href="@Url.Action("Index", "Homepage")">最新消息</a>
+                        </li>
+                        <li class="nav-item text-nowrap RWDnbs px-3">
+                            <a class="nav-link" href="@Url.Action("StoreInformation", "StoreInformation")">門市資訊</a>
+                        </li>
+                        <li class="nav-item dropdown RWDnbs px-3">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">菜單品鑑</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item ps-3" href="@Url.Action("Index_Musteat", "Menu")">老饕必吃</a></li>
+                                <li><a class="dropdown-item ps-3" href="@Url.Action("Index1_Mealsincluded", "Menu")">精選附食</a></li>
+                                <li><a class="dropdown-item ps-3" href="@Url.Action("Index2_Desserts", "Menu")">甜美點心</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item ps-3" href="@Url.Action("Index_Order", "Order")">訂餐</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item text-nowrap RWDnbs px-3">
+                            <a class="nav-link" href="@Url.Action("Member_Login", "Customers")">會員專區</a>
+                        </li>
+                        <li class="nav-item text-nowrap RWDnbs px-3">
+                            <a class="nav-link" href="@Url.Action("Create_CustomerFeedback", "CustomerFeedback")">聯絡我們</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated && User.Identity.Name == "admin") // 只允許 admin 角色的使用者才有後台權限
+                        {
+                            <li class="nav-item dropdown RWDnbs px-3">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">後台維護</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item ps-3" href="@Url.Action("Index3_MenuRead", "Menu")">菜單維護</a></li>
+                                    <li><a class="dropdown-item ps-3" href="@Url.Action("Index_ReplyFeedback", "ReplyFeedback")">顧客意見回復</a></li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+
+                    <!-- 把人頭(MemberHead)跟登入合併 -->
+                    <form class="d-flex" method="post" asp-action="Logout" asp-controller="Customers">
+                        @if (User.Identity.IsAuthenticated)   // layout 需加入這段
+                        {
+                            <span class="navber-text me-3 ms-3" style="font-size: 16pt;"> 歡迎, @User.Identity.Name</span>
+                            <button type="submit" class="btn btn-outline-danger">登出</button>
+                        }
+                        else
+                        {
+                            <a class="btn btn-outline-success ms-3" href="~/Customers/Member_Login">
+                                <img style="width:30px" src="~/images/MemberHead.png">登入
+                            </a>
+                        }
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - Restaurant
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 (來自 wwwroot/lib) -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- 自訂 JS -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- 可選的 Scripts 區域 -->
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

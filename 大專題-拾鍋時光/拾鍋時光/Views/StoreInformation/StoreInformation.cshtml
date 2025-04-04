@@ -1,0 +1,397 @@
+﻿@model Restaurant.Models.ReservationRestaurantViewModel
+@{
+    int maxPeople = 8;
+    ViewBag.Title = "門市資訊";
+    var tomorrow = DateTime.Now.AddDays(1);
+    var tomorrowAt1130 = new DateTime(tomorrow.Year, tomorrow.Month, tomorrow.Day, 11, 30, 0);
+}
+<!-- 引入自訂 CSS 與 Bootstrap -->
+<link rel="stylesheet" href="~/css/StoreInformation.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<body>
+    @Html.ValidationSummary()
+    <!-- 上方介紹區塊 -->
+    <div class="container my-5">
+        <div class="row justify-content-center align-items-center mb-4 d-none d-md-flex">
+            <div class="col-md-4">
+                <div class="restinfo">
+                    <p class="small-text">自1994年起至今</p>
+                    <p class="normal-text">一份飄香多年的幸福滋味</p>
+                    <p class="normal-text">客座滿堂，用心烹煮</p>
+                    <p class="normal-text">攜萬客靈魂之台中直輸合式鍋物</p>
+                    <p class="normal-text">持續努力在平凡中做出與眾不同的亮點</p>
+                    <p class="normal-text">獻給您老字號最經典美味的極致饗宴</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="restphoto border">
+                    <img src="~/images/Taichung_Hankou_台中漢口.jpg" alt="台中漢口店" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center">
+                        <!-- 文字區塊 -->
+                        <h3 class="section-title mb-2">門市據點．點餐．訂位</h3>
+                        <!-- 細線 -->
+                        <div class="section-line mx-auto"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 分店資訊列表 -->
+        @foreach (var restaurant in Model.RestaurantInfos)
+        {
+            <!-- 每筆資料一個 row，置中顯示 (justify-content-center)，欄之間距 g，與底部間距 mb -->
+            <div class="row justify-content-center align-items-center" style="margin-bottom:3em">
+                @if (restaurant.RestaurantInfoPosition == "Left")
+                {
+                    <!-- 地圖在左、門市資訊在右 -->
+                    <div class="col-md-4 ms-6 ">
+                        <div class="map-container position-relative" style="cursor:pointer;"
+                             onclick="openGoogleMaps('@restaurant.RestaurantName')">
+                            <img src="@Url.Content(restaurant.RestaurantImageUrl)" alt="@restaurant.RestaurantName" class="img-fluid" />
+                            <iframe src="@restaurant.RestaurantMapEmbedUrl"
+                                    width="350" height="250"
+                                    style="border:0;" allowfullscreen=""
+                                    loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-4  g-4 mb-3 ms-6">
+                        <div class="store-card p-3 shadow-sm d-flex flex-column">
+                            <h2 class="store-title">@restaurant.RestaurantName</h2>
+                            <p class="store-info">
+                                <strong>預約訂位：</strong>
+                                <a href="tel:@restaurant.RestaurantPhone" class="phone-link">@restaurant.RestaurantPhone</a>
+                            </p>
+                            <p class="store-info">
+                                <strong>門市位置：</strong>
+                                <a href="https://www.google.com/maps/search/?api=1&query=@restaurant.RestaurantAddress" target="_blank">
+                                    @restaurant.RestaurantAddress
+                                </a>
+                            </p>
+                            <p class="store-info">
+                                <strong>營業時間：</strong>
+                                @Html.Raw(restaurant.RestaurantOpeningHours)
+                            </p>
+                            <p class="store-info">
+                                <strong>最後點餐：</strong>
+                                @restaurant.RestaurantLastOrderTime
+                            </p>
+                            <!-- 隱藏欄位，用來存放分店ID；這裡假設只用一間分店進行預約 -->
+                            <input type="hidden" id="restaurantId" value="@restaurant.RestaurantId" />
+                            <div class="d-flex justify-content-center gap-3 mt-auto">
+                                <button type="button" class="btn btn-outline-warning btn-reservation"
+                                        data-bs-toggle="modal" data-bs-target="#bookingModal"
+                                        data-restaurant-id="@restaurant.RestaurantId"
+                                        data-restaurant-name="@restaurant.RestaurantName">
+                                    立即訂位
+                                </button>
+                                <button type="button" class="btn btn-outline-warning" onclick="location.href='@Url.Action("Index_Order", "Order")'">線上訂餐</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <!-- InfoPosition == "Right"：門市資訊在左、地圖在右 -->
+                    <div class="col-md-4 g-4 mb-3 ms-6">
+                        <div class="store-card p-3 shadow-sm d-flex flex-column">
+                            <h2 class="store-title">@restaurant.RestaurantName</h2>
+                            <p class="store-info">
+                                <strong>預約訂位：</strong>
+                                <a href="tel:@restaurant.RestaurantPhone" class="phone-link">@restaurant.RestaurantPhone</a>
+                            </p>
+                            <p class="store-info">
+                                <strong>門市位置：</strong>
+                                <a href="https://www.google.com/maps/search/?api=1&query=@restaurant.RestaurantAddress" target="_blank">
+                                    @restaurant.RestaurantAddress
+                                </a>
+                            </p>
+                            <p class="store-info">
+                                <strong>營業時間：</strong>
+                                @Html.Raw(restaurant.RestaurantOpeningHours)
+                            </p>
+                            <p class="store-info">
+                                <strong>最後點餐：</strong>
+                                @restaurant.RestaurantLastOrderTime
+                            </p>
+                            <!-- 隱藏欄位，用來存放分店ID；這裡假設只用一間分店進行預約 -->
+                            <input type="hidden" id="restaurantId" value="@restaurant.RestaurantId" />
+                            <div class="d-flex justify-content-center gap-3 mt-auto">
+                                <button type="button" class="btn btn-outline-warning btn-reservation"
+                                        data-bs-toggle="modal" data-bs-target="#bookingModal"
+                                        data-restaurant-id="@restaurant.RestaurantId"
+                                        data-restaurant-name="@restaurant.RestaurantName">
+                                    立即訂位
+                                </button>
+                                <button type="button" class="btn btn-outline-warning" onclick="location.href='@Url.Action("Index_Order", "Order")'">線上訂餐</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 ms-6">
+                        <div class="map-container position-relative" style="cursor:pointer;"
+                             onclick="openGoogleMaps('@restaurant.RestaurantName')">
+                            <img src="@Url.Content(restaurant.RestaurantImageUrl)" alt="@restaurant.RestaurantName" class="img-fluid" />
+                            <iframe src="@restaurant.RestaurantMapEmbedUrl"
+                                    width="350" height="250"
+                                    style="border:0;" allowfullscreen=""
+                                    loading="lazy"></iframe>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- 立即訂位的 Modal -->
+    <!-- 這裡可以直接顯示表單，或放在 Modal 中 -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookingModalLabel">訂位表單</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Modal Body (包含表單) -->
+                <div class="modal-body">
+                    <form id="bookingForm" asp-controller="StoreInformation" asp-action="StoreInformation" method="post">
+                        @Html.AntiForgeryToken()
+                        <!-- 假設 /Reservations 是接收 POST 的控制器動作 -->
+                        <!-- 分店名稱欄位 -->
+                        <div class="mb-3">
+                            <label for="restaurantId" class="visually-hidden">分店ID</label>
+                            <input type="hidden" class="form-control" id="restaurantId" name="Reservation.RestaurantId" required />
+                            <!-- 如果需要顯示門市名稱，可另加一個 readonly 的 input -->
+                        </div>
+                        <div class="mb-3">
+                            <label for="restaurantName" class="form-label">分店:</label>
+                            <input type="text" class="form-control" id="restaurantName" name="RestaurantName" readonly />
+                        </div>
+
+                        <!-- 其他欄位：電話、人數、日期時間等 -->
+                        <div class="mb-3">
+                            <label>姓名：</label>
+                            <input asp-for="Reservation.ReservationName" class="form-control" id="name" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone">電話：</label>
+                            <!-- 加上 maxlength 限制輸入長度 -->
+                            <input asp-for="Reservation.ReservationPhone" class="form-control" id="phone" pattern="^09\d{8}$" title="請輸入以09開頭的10位數手機號碼" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="people" class="form-label">人數:</label>
+                            <select class="form-select" id="people" name="Reservation.ReservationPeople" required>
+                                <option value="">請選擇人數</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dateTime" class="form-label">選擇日期與時間:</label>
+                            <input type="text" class="form-control" id="dateTime" name="Reservation.ReservationDate" required
+                                   value="@tomorrowAt1130.ToString("yyyy-MM-ddTHH:mm")" />
+                            <small class="text-muted">
+                                ※ 線上訂位僅限 11:30 ~ 23:45，午夜 12 點至 5 點不開放，當天不開放訂位。
+                            </small>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="submit" class="btn btn-primary">送出訂位</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* 預約成功彈窗 *@
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '預約成功！',
+                confirmButtonText: '確定'
+            });
+        </script>
+    }
+    <script>
+        // 點擊地圖圖片時開啟 Google Maps
+        function openGoogleMaps(branch) {
+            let url = "";
+            switch (branch) {
+                case "台中漢口店":
+                    url = "https://maps.app.goo.gl/Pbg4yd2jrigAkm3y6";
+                    break;
+                case "台中崇德店":
+                    url = "https://maps.app.goo.gl/z3TnqiZpHXFvqmRs9";
+                    break;
+                case "台中美村店":
+                    url = "https://maps.app.goo.gl/eRTRnPytL8aTcVHV9";
+                    break;
+                case "台中青海店":
+                    url = "https://maps.app.goo.gl/yuGGUwKCrBetgQGm7";
+                    break;
+                case "台中國安店":
+                    url = "https://maps.app.goo.gl/Tws5znETrnGmgbrP7";
+                    break;
+                default:
+                    url = "https://www.google.com/maps";
+            }
+            window.open(url);
+        }
+
+        //日期功能
+        document.addEventListener('DOMContentLoaded', function () {
+            // 解析後端傳來的字典，格式如：{ "1": ["2025-03-15", "2025-03-20"], "2": ["2025-04-10"] }
+            var storeDatesDict = JSON.parse('@Html.Raw(ViewBag.StoreBookedDatesDict)');
+            console.log("各分店已客滿日期字典:", storeDatesDict);
+
+            // 取得 Modal 元素
+            var bookingModal = document.getElementById('bookingModal');
+
+            bookingModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var restaurantId = button.getAttribute('data-restaurant-id');
+                var restaurantName = button.getAttribute('data-restaurant-name');
+
+                // 將分店 ID 與名稱填入 Modal 表單的對應欄位
+                var restaurantIdInput = bookingModal.querySelector('#restaurantId');
+                if (restaurantIdInput) {
+                    restaurantIdInput.value = restaurantId;
+                    console.log("隱藏欄位 restaurantId 的值設為:", restaurantIdInput.value);
+                } else {
+                    console.error("找不到隱藏欄位 #restaurantId");
+                }
+
+                var restaurantNameInput = bookingModal.querySelector('#restaurantName');
+                if (restaurantNameInput) {
+                    restaurantNameInput.value = restaurantName;
+                    console.log("分店名稱欄位 restaurantName 的值設為:", restaurantNameInput.value);
+                } else {
+                    console.error("找不到分店名稱欄位 #restaurantName");
+                }
+
+                // 取得該店的已客滿日期清單 (若無則給空陣列)
+                var disabledDates = storeDatesDict[restaurantId] || [];
+                console.log("分店 " + restaurantId + " 已客滿日期:", disabledDates);
+
+                // 初始化 flatpickr，並加入 onDayCreate 來顯示 "客滿" 標籤
+                initFlatpickr(disabledDates);
+            });
+
+            // 幫助函式：初始化 flatpickr
+            function initFlatpickr(disabledDates) {
+                var dateInput = document.getElementById('dateTime');
+                // 計算明天 (禁止當天訂位)
+                var tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                var tomorrowStr = tomorrow.toISOString().split("T")[0];
+
+                // 如果已有 flatpickr 實例，先銷毀
+                if (dateInput._flatpickr) {
+                    dateInput._flatpickr.destroy();
+                }
+
+                flatpickr("#dateTime", {
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i",
+                    time_24hr: true,
+                    minuteIncrement: 15,
+                    minDate: tomorrowStr,   // 當天不開放訂位，從明天開始
+                    minTime: "11:30",
+                    maxTime: "23:59",
+                    disable: disabledDates, // 禁用該店的已客滿日期
+                    onDayCreate: function(dObj, dStr, fp, dayElem) {
+                        // 將當前單元格的日期轉換成 "yyyy-MM-dd" 格式
+                        var dayDate = fp.formatDate(dayElem.dateObj, "Y-m-d");
+                        // 如果這個日期在 disabledDates 陣列中，附加 "客滿" 標籤
+                        if (disabledDates.indexOf(dayDate) !== -1) {
+                            var label = document.createElement("span");
+                            label.className = "fully-booked-label";
+                            label.textContent = "客滿";
+                            dayElem.appendChild(label);
+                        }
+                    }
+                });
+            }
+        });
+
+        //判斷是否登入
+        // 這裡 isLoggedIn 會是 true 或 false 字串
+        var isLoggedIn = '@User.Identity.IsAuthenticated'.toLowerCase();
+        console.log("使用者是否已登入: " + isLoggedIn);
+        document.addEventListener('DOMContentLoaded', function () {
+            // 假設 isLoggedIn 為 "true" 或 "false" 字串
+            document.querySelectorAll('.btn-reservation').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    if (isLoggedIn === "false") {
+                        // 若未登入，直接導向登入頁面
+                        window.location.href = '@Url.Action("Member_Login", "Customers")';
+                        e.preventDefault(); // 阻止後續事件（例如打開 Modal）
+                        return false;
+                    }
+                    // 若已登入，則讓 Bootstrap 自動打開 Modal
+                });
+            });
+        });
+        //送出確認框
+        document.addEventListener('DOMContentLoaded', function () {
+            var bookingForm = document.getElementById('bookingForm');
+            bookingForm.addEventListener('submit', function (e) {
+                // 阻止表單自動送出
+                e.preventDefault();
+
+                // 顯示確認對話框
+                Swal.fire({
+                    title: '確定送出訂位？',
+                    text: '送出後無法修改，如需修改請致電門市。',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: '確定送出',
+                    cancelButtonText: '取消'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // 若使用者確認，就提交表單
+                        bookingForm.submit();
+                    }
+                    // 若使用者取消，不做任何事
+                });
+            });
+        });
+
+        //分店人數訂位限制
+                document.addEventListener('DOMContentLoaded', function () {
+            // 當 Modal 顯示時觸發
+            var bookingModal = document.getElementById('bookingModal');
+            bookingModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var restaurantName = button.getAttribute('data-restaurant-name');
+                // 根據分店名稱決定最大人數：如果是台中漢口店，則 maxPeople = 6；其他則 8
+                var maxPeople = (restaurantName === "台中漢口店") ? 4 : 6;
+
+                // 取得 <select> 元素，然後動態產生選項
+                populatePeopleSelect(maxPeople);
+            });
+        });
+
+        function populatePeopleSelect(maxPeople) {
+            var select = document.getElementById("people");
+            // 先清除除第一個 placeholder 以外的選項
+            while (select.options.length > 1) {
+                select.remove(1);
+            }
+            // 動態生成 1 ~ maxPeople 的選項
+            for (var i = 1; i <= maxPeople; i++) {
+                var option = document.createElement("option");
+                option.value = i;
+                option.textContent = i + " 人";
+                select.appendChild(option);
+            }
+        }
+
+    </script>
+</body>

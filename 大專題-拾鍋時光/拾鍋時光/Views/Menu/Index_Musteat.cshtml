@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Restaurant.Models.MenuView>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "菜單品鑑";
+}
+<link rel="stylesheet" href="~/css/Menu.css" asp-append-version="true" />
+
+
+@* 內容區域 *@
+<div class="col-md-9 mt-5"></div>
+@* 創建div元素，設置class為 text-center，將內容置中對齊 *@
+<div class="text-center">
+    @* 創建h1標題元素，設置class為 display-4，設置標題文本 *@
+    <h2 class="display-4">老饕必吃 — 極致鍋物饗宴</h2>
+    <h4>嚴選頂級食材，搭配獨門湯底，每一口都是對食材與手藝的極致追求，帶來溫潤醇厚的美味饗宴。</h4>
+</div>
+
+<p></p>
+
+@* 巢狀導覽列 *@
+<div class="container mt-5">
+    <div class="row">
+        <nav id="navbar-example3" class="navbar bg-light flex-column align-items-stretch p-2 h-auto col-md-1 col-lg-1 d-none d-md-block position-absolute">
+            <a class="navbar-brand text-dark" href="#">老饕必吃</a>
+            <nav class="nav nav-pills flex-column">
+                @foreach (var menu in Model.Where(m => m.MenuCategoryId == 1))
+                {
+                    <a class="nav-link ms-3 my-1 text-dark" href="#@($"A{menu.MenuId}")">@menu.MenuName</a>
+                }
+            </nav>
+        </nav>
+
+        @* 頁面內容 *@
+        <div class="col-md-9 offset-md-3">
+            <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-offset="10" tabindex="0">
+
+                @foreach (var menu in Model.Where(m => m.MenuCategoryId == 1))
+                {
+                    <div class="card mb-5 p-3 border" id="@($"A{menu.MenuId}")">
+                        <div class="flex-container">
+                            <a href="@Url.Action("Soup_Order", "Order")" class="stretched-link"></a>
+                            <img src="@menu.MenuImageUrl" class="img-fluid rounded" style="width:400px; height:auto;" alt="@menu.MenuName">
+                            <div class="card-body">
+                                <h5 class="card-stitle ">@menu.MenuName</h5>
+                                <p class="card-text">@menu.MenuDescription</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<button onclick="topFunction()" id="upBtn" class="bi bi-arrow-up">TOP</button>
+
+<script>
+       let mybutton = document.getElementById("upBtn");
+
+       window.onscroll = function() {scrollFunction()};
+
+       function scrollFunction() {
+           if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+               mybutton.style.display = "block";
+           }
+         else {
+             mybutton.style.display = "none";
+           }
+    }
+
+       function topFunction() {
+           document.body.scrollTop = 0;
+           document.documentElement.scrollTop = 0;
+    }
+</script>

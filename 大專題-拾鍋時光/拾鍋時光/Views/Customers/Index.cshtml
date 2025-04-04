@@ -1,0 +1,135 @@
+﻿@using Restaurant.Dto
+@model Restaurant.Dto.indexDto
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+@*@model Restaurant.Models.Customer*@
+<link rel="stylesheet" href="~/css/Css_Customer.css" asp-append-version="true" />
+
+
+
+<div class="container mt-4 myfont">
+	<h2 class="text-center titlestyle1">會員專區</h2>
+
+	<!-- 上方按鈕 -->
+	<div class="d-flex justify-content-center mb-3 myfont" style="padding-bottom:1%">
+		<a href="~/Order/Index_Order" class="btn btn-primary mx-2 btnstyle2">訂餐</a>
+		<a href="~/StoreInformation/StoreInformation" class="btn btn-secondary mx-2 btnstyle2">訂位</a>
+	</div>
+
+	<form>
+	<!-- 會員資訊 -->
+		<div class="card p-3 mb-4 py-4 myfont">
+			<h4 style="padding-left: 1.5%;">會員資訊</h4>
+			<a asp-action="Edit" asp-route-id="@Model.viewModel.CustomerId" class="btn btn-secondary ">修改資料✏️</a>
+			<p class="listpadding1" style="padding-top:2%;"><strong>帳號：</strong> @Model.viewModel.CustomerAccount</p>
+			<p class="listpadding1"><strong>姓名：</strong> @Model.viewModel.CustomerName</p>
+			<p class="listpadding1"><strong>電話：</strong> @Model.viewModel.CustomerPhone</p>
+			<p class="listpadding1"><strong>Email：</strong> @Model.viewModel.CustomerEmail</p>
+			<p class="listpadding1"><strong>地址：</strong> @Model.viewModel.CustomerAddress</p>
+	
+	</div>
+	</form>
+	<!-- -----訂單紀錄 (包含訂位/訂餐)----- -->
+
+	<div style="background-color:white; padding:4%;" class="myfont">
+	<h4 class="myfont">訂單紀錄</h4>
+	<!--訂單/訂位選擇-->
+	<form method="post" asp-controller="Customers" asp-action="Index">
+		<div> 
+			<label>
+				<input type="radio" asp-for="OrderType" value="reserve" onchange="this.form.submit()" /> 訂位資料
+			</label>
+			<label>
+				<input type="radio" asp-for="OrderType" value="ordering"  onchange="this.form.submit()" /> 訂餐資料
+			</label>
+		</div>
+	</form>
+
+	<p style="height:5%;" >
+	@*這裡要加判斷看使用者選什麼 (預設用訂位資料)*@
+	<!--訂位資料-->
+	@{
+		if (Model.OrderType == "reserve")
+		{
+			<div id = "reserve">
+				<!--<h3>訂位資訊</h3>-->
+						<table class="table table-bordered" style="background-color:whitesmoke">
+							<thead class="thead-light" style="background-color:#E4E4E4">
+						<tr>
+							<th>訂位者姓名</th>
+							<th>電話</th>
+							<th>人數</th>
+							<th>店名</th>
+							<th>店家地址</th>
+							<th>訂位日期</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						@foreach (var order in Model.RRIs)
+						{  
+							<tr>  
+								<td>@order.ReservationName</td>  
+								<td>@order.ReservationPhone</td>  
+								<td>@order.ReservationPeople</td>  
+								<td>@order.RestaurantName</td>  
+								<td>@order.RestaurantAddress</td>  
+								<td>@order.ReservationDate.ToString("yyyy-MM-dd")</td>  					
+							</tr>  
+						} 
+					</tbody>
+				</table>
+			</div>
+
+		}
+		else if (Model.OrderType == "ordering")
+		{ 
+		<div id = "ordering" >  <!--訂餐資料-->
+				<!--<h3>訂餐資訊</h3>-->
+						<table class="table table-bordered" style="background-color:whitesmoke">
+							<thead class="thead-light" style="background-color:#E4E4E4">
+					<tr>
+						<th>訂餐者姓名</th>
+						<th>型態</th>
+						<th>地址</th>
+						<th>商品數量</th>
+						<th>品項</th>
+						<th>單價</th>
+						<th>日期</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach (var order in Model.OOs)
+					{  
+							<tr>  
+								<td>@order.OrderName </td>  
+								<td>@order.OrderType </td>  
+								<td>@order.OrderAddress</td>  
+								<td>@order.OrderItemQuantity</td>  
+								<td>@order.OrderItemMenuName</td>  
+								<td>@order.OrderItemUnitPrice</td>  
+								<td>@order.OrderDate.ToShortDateString()</td>  					
+
+							</tr>  
+					} 
+				</tbody>
+			</table>
+		</div>
+		}
+		else{
+				<h1>尚未選擇訂單資訊</h1>
+		}
+	}
+	</p>
+</div>
+</div>
+
+			
+

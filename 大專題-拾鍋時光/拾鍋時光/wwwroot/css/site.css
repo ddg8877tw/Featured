@@ -1,0 +1,51 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #DEDEBE
+}
+
+/*字型（粉圓體）*/
+@charset "UTF-8";
+
+@font-face {
+    font-family: jf-openhuninn-2.1;
+    src: url('~/ttf/jf-openhuninn-2.1.woff') format('woff');
+}
+
+.myfont {
+    font-family: 'jf-openhuninn-2.1';
+}
+
+
+/*響應式*/
+@media (max-width: 1440px) {
+    .RWDnbs {
+        font-size: 19pt;
+    }
+}
+@media (max-width: 1200px) {
+
+
+    .RWDnbs {
+        font-size: 16pt;
+    }
+
+}
