@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倉鼠照護</title>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            background-image: url("../圖/倉鼠1.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("../圖/倉鼠1.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+            /* 半透明白色背景 */
+            background-size: cover;
+            z-index: -1;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            background-color: #95C5D4;
+            color: #FEF8EB;
+            padding: 1rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        nav {
+            background-color: #B7DAE4;
+            box-shadow: 0 2px 4px #F8E4DB;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: #5C5E74;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        /* 查詢欄位位置 */
+        .searchForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .searchForm input {
+            margin-bottom: 20px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .searchForm span {
+            margin-bottom: 30px;
+        }
+
+        form {
+            position: relative;
+            top: 10px;
+            left: 8%;
+        }
+
+        button {
+            position: relative;
+            top: -25px;
+            left: 86%;
+        }
+
+        /* 下拉式選單樣式 */
+        .dropdown {
+            position: relative;
+        }
+
+        /* 預設隱藏 */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #B7DAE4;
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            min-width: 150px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .dropdown-menu li {
+            width: 100%;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #5C5E74;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #95C5D4;
+            color: #fff;
+        }
+
+        /* 滑鼠懸停時顯示下拉選單 */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .cute {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 0%;
+            margin-right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>倉鼠照護</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="animal_index.html">毛孩夥伴</a></li>
+            <li><a href="animal_home.html">毛孩之家</a></li>
+            <li><a href="animal_hospital.html">毛孩醫院</a></li>
+
+            <li class="dropdown">
+                <a href="animal_knowledge.html">毛孩保健</a>
+                <ul class="dropdown-menu">
+                    <li><a href="dog.html">犬隻照護</a></li>
+                    <li><a href="cat.html">貓隻照護</a></li>
+                    <li><a href="rabbit.html">兔隻照護</a></li>
+                    <li><a href="hamster.html">倉鼠照護</a></li>
+                    <li><a href="hedgehog.html">刺蝟照護</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <h2>倉鼠是可愛小巧且相對容易照顧的寵物，但它們有特定的需求，適合安靜細心的飼養者。</h2>
+    <h3>幼鼠照護</h3>
+    <p>
+        45天以下幼鼠建議提供充分營養品，幫助牠健康成長，度過危險期。
+        <hr>
+        密切觀察幼鼠是否可以正常進食，若幼鼠咬不動較硬飼料，建議將一部份飼料泡軟或磨小塊後給予。
+        <hr>
+        給予安靜、乾淨、溫暖的環境。鼠籠溫度應維持在25度左右，給予充足的衛生紙、廚房紙巾當作被窩，冬天請勿使用陶瓷窩。
+        <hr>
+        幼鼠還不太會整理被窩，若觀察幼鼠不會自己鋪床，請手動幫牠把紙巾撕碎，鋪成蓬鬆狀（較保暖）。
+        <hr>
+        鼠帶回後三至七天盡量少打擾，若有任何異狀如：腹瀉、眼睛張不開、身體軟綿無力、不吃東西。請火速送醫。
+        <hr>
+        三個月以內未成年鼠請避免餵食生鮮蔬菜水果，待三個月以上身體發育完全後才循序漸進，開始餵食豐富多樣各種食物。
+        <hr>
+        幼鼠緊張就會爆衝，用手抓幼鼠的時候請在低處、軟處進行。
+        <hr>
+        請一籠一鼠飼養，40天以上鼠有繁殖、互殘能力。
+        <hr>
+        鼠都會長大，三到四個月的鼠體型才會固定下來，請準備更大的籠舍。
+        <hr>
+        帶鼠出門就醫請注意保暖或防暑，途中請盡量安穩，勿顛簸、吹風。
+        <hr>
+        幼鼠請勿接觸未煮沸之生水。
+    </p>
+    <br></br>
+    <h3>必備飼養環境</h3>
+    <p>
+        必備籠舍平坦寬敞，越大越好。
+        <hr>
+        倉鼠非常擅長利用狹小的縫隙逃脫，建議選擇材質堅固且能防止倉鼠脫逃的籠舍，作為飼養設施。
+        侏儒倉鼠至少需要30*40=1200平方公分，40*60=2400平方公分以上佳。
+        黃金鼠至少需要40*60=2400平方公分，60*80=4800平方公分以上佳。
+        <hr>
+        必備滾輪，倉鼠原生環境遼闊，有長途奔跑習性，倉鼠熱愛跑滾輪且可緩解籠養緊迫。
+        挑選平坦無縫隙之滾輪，24小時不限制時段供鼠使用。
+        侏儒倉鼠至少需要直徑16公分滾輪。
+        黃金鼠至少需要直徑21公分滾輪。
+        <hr>
+        倉鼠是地底穴居動物，牠們需要厚厚的墊材滿足挖掘、築巢、穴居、躲藏的天性。挑選低粉塵、無化學添加之墊材。鋪設厚度建議達到4公分以上，10公分以上佳。
+        合適的墊材:
+        廚房紙巾、衛生紙、紙墊料(如：紙棉、紙墊料、紙粒)、實驗室木屑。
+        <hr>
+        避免墊材:
+        報紙、木屑砂、毛巾、布料、砂類、廉價木屑。
+        <hr>
+        必備水瓶，24小時提供動物乾淨飲水。
+        <hr>
+        提供木塊、磨牙棒等玩具讓倉鼠啃咬及磨牙，也可降低發生門齒過長的風險。
+        <hr>
+        躲藏家具：如小窩、平台、管道等，使環境富有層次變化，降低鼠緊迫感。
+        <hr>
+        鼠廁、鼠廁砂：便於清潔，供鼠休憩、玩沙、納涼。
+        <hr>
+        沐浴砂：不需常駐籠內，可定期提供，侏儒倉鼠有滾沙天性，可平衡毛髮油脂。
+        <hr>
+        散熱板：供鼠散熱，降低中暑風險。
+    </p>
+    <br></br>
+    <h3>飲食</h3>
+    <p>
+        倉鼠為雜食性動物，建議選擇含有蛋白質、具堅硬粒料之飼料，確保飲食均衡、充分磨牙。
+        <hr>
+        倉鼠飲水量少，建議一天飲水量為每100公克體重10毫升（例如：30公克的三線鼠，每日所需的飲水量為3毫升） 。
+        <hr>
+        蔬菜水果、豆類、種子類、植物花草類、五穀雜糧根莖類，都可以作為倉鼠的營養來源。
+        <hr>
+        主食飼料，每日提供鼠體重十分之一的飼料量。小型倉鼠以寶特瓶蓋的量為參考，黃金鼠以奶粉勺的量為參考。可多不可少。
+        <hr>
+        磨牙飼料，適當的磨牙飼料常駐。
+        <hr>
+        新鮮食物類，每日應提供：蔬菜 / 水果 / 種子類新鮮食物，至少一個鼠耳朵的量。
+        <hr>
+        每日餵食法：主食飼料+磨牙飼料+新鮮食物類，不新鮮的食物收走。
+        <hr>
+        每日觀察鼠食量有無減少，若連續數日食量明顯減少，可能身體不適須就醫。
+        <hr>
+        飼料保存方法：飼料加上乾燥劑密封即可，如果飼料吃很慢超過半年以上，建議把大部分飼料放進冰箱，一次只取出短期內需要吃的量就好。
+        <hr>
+        倉鼠要避免:五辛（洋蔥、蔥、大蒜、韭菜等）、辣椒、番茄葉、巧克力、咖啡、茶、酒、酪梨、各種果核(蘋果籽、龍眼籽等)、人工食品、不新鮮食材、水分含量高的蔬菜水果。
+    </p>
+    <br></br>
+    <div class="cute">
+        <img src="../圖/倉鼠2.jpg" width="650" height="550">
+    </div>
+    <br></br>
+    <h3>每日觀察</h3>
+    <p>
+        倉鼠生病很難發現，檢查應每天進行，連續三天嚴重異常要盡速看醫生。
+        <hr>
+        精神：
+        每天都要觀察鼠是否有起床活動，記錄鼠大概跑多久滾輪，是不是動作敏捷、耳朵、眼睛都張開，四處探險。
+        <hr>
+        食慾：
+        可以用目測法，但要確實每天看一看，鼠前一天的食量大概幾克，把鼠窩裡的食物扣掉前一天給予的，就可以知道鼠一天吃了多少。
+        <hr>
+        體重：
+        每天順手秤一下鼠寶的體重，鼠鼠如果突然體重持續下降，就要盡速看醫生。
+        倉鼠成鼠體重正常區間：
+        老公公鼠約20-40克
+        三線鼠、一線鼠約30-50克
+        黃金鼠約90-150克。
+        <hr>
+        倉鼠過敏體質比率偏高，如果倉鼠發出「啾啾」聲或是身體發癢等過敏症狀，建議更換墊材或找出過敏源。
+        <hr>
+        倉鼠的上、下排門牙會不斷生長；若未確實磨牙，恐影響進食或刺傷口腔。
+        <hr>
+        造成腹瀉的原因很多，飼主可透過改善環境清潔、提供單純溫和的飲食（僅提供飼料，暫停供應蔬菜及點心）、補充水分。但若持續的腹瀉有極高的死亡風險，仍應盡快尋求獸醫師協助。
+    </p>
+    <br></br>
+    <h3>環境清潔、家具清潔</h3>
+    <p>
+        墊材：每天檢查一下有無髒髒的地方，可局部清理。建議5-7天全部墊材換新。
+        <hr>
+        鼠廁沙：可以每天把尿塊撈起來，建議5-7天左右全部換新鼠砂。
+        <hr>
+        鼠窩裡的衛生紙或廚房紙巾：建議每3-5天全部換新。(頻率可提高)
+        <hr>
+        清水沖洗、抹布擦拭
+        作用：初步清潔。
+        適用對象：所有鼠。
+        頻率：隨時。
+        使用方法：沖洗籠具、家具，或用抹布擦拭。水必須徹底晾乾才給鼠。
+        <hr>
+        清水浸泡
+        作用：清除木類尿垢。
+        適用對象：遭汙染木頭家具。
+        使用方法：木頭家具污染部分浸泡於清水中，之後需曬太陽一到兩天。
+        <hr>
+        檸檬酸
+        作用：輕鬆清除尿垢。
+        適用對象：所有尿垢處。
+        使用方法：檸檬酸加水之後噴在尿垢處等待約5-10分鐘，輕鬆去除。水必須徹底晾乾才給鼠。
+        <hr>
+        洗碗清潔劑
+        作用：初步除菌。
+        適用對象：塑膠、金屬類家具籠具。
+        使用方法：稀釋清潔劑約5倍，像洗碗一樣沖洗乾淨。水必須徹底晾乾才給鼠。
+        <hr>
+        酒精
+        作用：徹底清除各種病菌（不包含蟲卵類）。
+        適用對象：手術鼠、受傷鼠、抵抗力弱鼠、籠具受到汙染。健康鼠也可。
+        頻率：一天一次。
+        使用方法：75%潔用酒精直接噴灑，用衛生紙、廚房紙巾(較好用)將酒精擦拭乾淨。必須徹底晾乾才給鼠。
+        <hr>
+        70度以上熱水澆淋
+        作用：殺各種蟲卵、初步清潔。
+        適用對象：水便、軟便鼠、感染蟲類鼠、腸胃道抵抗力不佳鼠。健康鼠也可。
+        頻率：一天兩次、一天一次。
+        使用方法：熱水澆淋。
+        <hr>
+        太陽曝曬
+        作用：有效紫外線殺菌、殺蟲。健康鼠也可。
+        適用對象：所有。
+        頻率：方便的時候。
+        使用方法：放在太陽直射處，避免馬路邊有灰塵、鳥大便攻擊。
+    </p>
+    <br></br>
+    <h3>共同飼養</h3>
+    <p>
+        應避免倉鼠互相接觸，以達到良好的繁殖控制。
+        <hr>
+        部分的倉鼠都具有強烈的領域性，陌生個體接觸容易發生嚴重衝突。
+    </p>
+    <br></br>
+
+    <div class="header"></div>
+    <div class="body"></div>
+
+</body>
+
+</html>
